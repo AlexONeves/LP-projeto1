@@ -31,23 +31,20 @@ class Turma {
 
 class Aluno {
 
-    private int[] respostas = new int[20];
+    private int[] respostas;
     private int res;
 
     public Aluno() {
+        this.respostas = new int[20];
         this.respostas = generateArrayRespostas();
     }
 
     private int[] generateArrayRespostas() {
+        Random randResposta = new Random();
         for (int i = 0; i < respostas.length; i++) {
-            respostas[i] = generateRandomResposta();
+            respostas[i] = randResposta.nextInt(5) + 0;
         }
         return respostas;
-    }
-
-    private int generateRandomResposta() {
-        Random randResposta = new Random();
-        return randResposta.nextInt(5) + 0;
     }
 
     public int[] getRespostas() {

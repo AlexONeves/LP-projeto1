@@ -3,7 +3,7 @@ package estga.poo.novouniverso.mavenproject1;
 import java.io.*;
 import java.util.*;
 
-class ResultadoCalculo implements Serializable {
+class ResultadoCalculo {
 
     private transient ArrayList<Integer> respostasCorretas;
     private transient ArrayList<Double> resultados;
@@ -17,6 +17,9 @@ class ResultadoCalculo implements Serializable {
 
     public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma) {
 
+        //OBJETIVO É IMPLEMENTAR ISTO
+        //public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma, ArrayList<Integer> respostasCorretas)
+        //this.respostasCorretas = respostasCorretas;
         this.respostasCorretas = SistemaCalculoTurma.gerarRespostas(30);
 
         this.resultados = calcularNotas(turma);
@@ -29,36 +32,45 @@ class ResultadoCalculo implements Serializable {
     private ArrayList<Double> calcularNotas(ArrayList<ArrayList<Integer>> turma) {
         ArrayList<Double> tmp = new ArrayList<>();
 
-        //loop pelo aluno
         for (ArrayList<Integer> aluno : turma) {
+            //Calcular a nota
             Double resultado = SistemaCalculoTurma.calcularNotas(aluno, respostasCorretas);
 
+            //Avaliar resultado obtido
             if (resultado > 10) {
                 this.numeroPositivasInt++;
             } else {
                 this.numeroNegativasInt++;
             }
+
+            //guardar resultado
             tmp.add(resultado);
         }
         return tmp;
     }
 
+    /**
+     * Como um dos requerimentos foi exibir resultados de varias maneiras,
+     * acabamos por usar esta abordagem, podendo re-usar a função
+     * Object.toString em qualquer necessidade de exibir.
+     *
+     */
     @Override
     public String toString() {
 
         String tmp = "turma{\n" + "alunos:\n";
 
         for (int i = 0; i < resultados.size(); i++) {
-            tmp += (i + " - " + Double.toString(resultados.get(i)) + '\n');
+            tmp += ((i + 1) + " - " + Double.toString(resultados.get(i)) + '\n');
         }
 
         tmp += "Nota mais alta: " + this.maiorNota + '\n'
                 + "Nota mais baixa: " + this.menorNota + '\n'
                 + "Média das notas: " + this.mediaNotas + '\n'
                 + "Número de positivas e respetiva percentagem: " + this.numeroPositivasInt
-                + " - " + (this.numeroPositivasInt / this.respostasCorretas.size()) + " %\n"
+                + " - " + (this.numeroPositivasInt / this.respostasCorretas.size()) * 100 + " %\n"
                 + "Número de negativas e respetiva percentagem: " + this.numeroNegativasInt
-                + " - " + (this.numeroNegativasInt / this.respostasCorretas.size()) + " %\n"
+                + " - " + (this.numeroNegativasInt / this.respostasCorretas.size()) * 100 + " %\n"
                 + '\n';
 
         return tmp;
@@ -71,6 +83,14 @@ class ResultadoCalculo implements Serializable {
  */
 public class SistemaCalculoTurma implements Serializable {
 
+    /**
+     * Função que calcula a nota do aluno, irá ser adicionado 1 a cada resposta
+     * certa, descontado 0.5 a cada nota errada.
+     *
+     * @param listaRespostas -> Lista de inteiros com respostas a ser avaliadas
+     * @param listaRespostasCertas -> Lista de inteiros com respostas corretas
+     * @return Retorna o valor calculado da nota
+     */
     static Double calcularNotas(ArrayList<Integer> listaRespostas, ArrayList<Integer> listaRespostasCertas) {
         Double resultado = 0.0;
 
@@ -88,31 +108,46 @@ public class SistemaCalculoTurma implements Serializable {
                     resultado += 1;
                 } else {
                     //apenas subtrai se o resultado não for negativo
-                    resultado = (resultado - 0.5 < 0) ? resultado - 0.5 : resultado;
+                    resultado = (resultado - 0.5 < 0) ? resultado : resultado - 0.5;
                 }
             }
         }
         return resultado;
     }
 
+    /**
+     *
+     * Função apenas para qualidade de vida, Serve para gerar uma lista de
+     * respostas para teste
+     *
+     * @param quantidade -> Quantidade de numeros/respostas a gerar
+     * @return Irá retornar a lista de numeros gerados
+     */
     static ArrayList<Integer> gerarRespostas(int quantidade) {
+
         ArrayList<Integer> tmp = new ArrayList<>();
         Random r = new Random();
 
         //cria numero de 1 a 5 com class Random
         for (int i = 0; i < quantidade; i++) {
-            tmp.add(r.nextInt(5));
+            tmp.add(r.nextInt(1, 5));
         }
 
         return tmp;
     }
 
     /**
+     * Função que obtem o maior numero de um array fornecido.
      *
      * @param arr -> Array para ser calulado o menor numero
-     * @return
+     * @return Retorna o maior numero da lista
      */
     static Double numeroMaiorArrayInt(ArrayList<Double> arr) {
+        //verificar erros
+        if (arr.isEmpty()) {
+            return null;
+        }
+
         Double maior = arr.get(0);
 
         for (Double curr_numero : arr) {
@@ -125,9 +160,14 @@ public class SistemaCalculoTurma implements Serializable {
     /**
      *
      * @param arr -> Array para ser calulado o menor numero
-     * @return
+     * @return -> Irá retornar o menor numero do array
      */
     static Double numeroMenorArrayInt(ArrayList<Double> arr) {
+        //verificar erros
+        if (arr.isEmpty()) {
+            return null;
+        }
+
         double menor = arr.get(0);
 
         for (double curr_numero : arr) {
@@ -147,24 +187,33 @@ public class SistemaCalculoTurma implements Serializable {
      * @return
      */
     static Double numeroMediaArrayInt(ArrayList<Double> arr) {
+        //verificar erros
+        if (arr.isEmpty()) {
+            return null;
+        }
+
         return arr.stream().mapToDouble(a -> a).average().getAsDouble();
     }
 
     /**
+     *
+     * Usada para verificar a necessidade de criação de Objectos temporarios de
+     * teste.
+     *
      * @param diretorio -> Diretorio a ser verificado a existencia de ficheiros
      * disponiveis
      *
      * @return Retorna a quantidade de turmas disponiveis, ou null se não achar
      * nenhuma
      */
-    static boolean verificarExistenciaDeFicheiros() {
+    static boolean verificarExistenciaDeFicheiros(String nomeFicheiroResposta, String nomeFicheiroTurma) {
         String curr_directory;
 
         try {
             curr_directory = new java.io.File(".").getCanonicalPath() + "\\src\\";
 
-            File ficheiroResultado = new File(curr_directory + "resultado.dat");
-            File ficheiroTurma = new File(curr_directory + "turma.dat");
+            File ficheiroResultado = new File(curr_directory + nomeFicheiroResposta);
+            File ficheiroTurma = new File(curr_directory + nomeFicheiroTurma);
 
             return ficheiroResultado.exists() && ficheiroTurma.exists();
         } catch (IOException ex) {
@@ -188,17 +237,23 @@ public class SistemaCalculoTurma implements Serializable {
             return false;
         }
 
+        // gera lista temporaria para guardar dados
         ArrayList<ArrayList<Integer>> turma = new ArrayList<>(numAlunos);
         Random randResposta = new Random();
 
-        for (ArrayList<Integer> curr_aluno : turma) {
+        // enche a "turma" gerada com notas de alunos de exemplo
+        for (int curr_aluno = 0; curr_aluno < numAlunos; curr_aluno++) {
+            ArrayList<Integer> aluno = new ArrayList<>(numRespostas);
+
             // gerar nota para cada aluno
             for (int curr_nota = 0; curr_nota < numRespostas; curr_nota++) {
-                curr_aluno.add(randResposta.nextInt(5) + 0);
+                aluno.add(randResposta.nextInt(5) + 0);
             }
+            System.out.println(aluno);
+            turma.add(aluno);
         }
 
-        //gera ficheiro
+        //gera ficheiro turma, retorna false em caso de insucesso
         try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(filePath));
             output.writeObject(turma);
@@ -211,6 +266,12 @@ public class SistemaCalculoTurma implements Serializable {
 
     }
 
+    /**
+     *
+     * @param numRespostas
+     * @param filePath
+     * @return
+     */
     static boolean gerarFicheiroRespostas(int numRespostas, File filePath) {
 
         if (numRespostas < 0) {

@@ -13,6 +13,13 @@ import java.util.ArrayList;
  */
 public class Mavenproject1 implements Serializable {
 
+    /**
+     * função criada para facilitar dar o caminho de ficheiros
+     *
+     * @param nomeFicheiro -> Nome do arquivo (Default: respostasTurma e
+     * respostas.txt)
+     * @return
+     */
     static File obterDiretorio(String nomeFicheiro) {
         try {
             return new File(new java.io.File(".").getCanonicalPath() + "\\src\\" + nomeFicheiro);
@@ -31,17 +38,26 @@ public class Mavenproject1 implements Serializable {
         final String nomeFicheiroTurma = "respostasTurma";
         final String nomeFicheiroResposta = "respostas.txt";
 
-        if (SistemaCalculoTurma.verificarExistenciaDeFicheiros() != true) {
+        if (SistemaCalculoTurma.verificarExistenciaDeFicheiros(nomeFicheiroResposta, nomeFicheiroTurma) != true) {
             //gerar templates
             SistemaCalculoTurma.gerarFicheiroTurma(numAlunos, numRespostas, obterDiretorio(nomeFicheiroTurma));
+            //to do
 
             System.out.println("Nenhum ficheiro turma foi encontrado, foram criados novos!");
         }
 
-        //to do: reover throws e criar função para ler ficheiro turma
+        //to do: remover throws e criar função para ler ficheiro turma
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterDiretorio(nomeFicheiroTurma)));
         turma = (ArrayList<ArrayList<Integer>>) ois.readObject();
         ois.close();
+
+        //respostas
+        resultado = new ResultadoCalculo(turma);
+
+        //criar leitura de texto
+        BufferedReader br = new BufferedReader(new FileReader(obterDiretorio("respostas.txt")));
+
+        System.out.println(resultado.toString());
 
     }
 }

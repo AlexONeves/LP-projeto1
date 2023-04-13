@@ -92,7 +92,7 @@ public class SistemaCalculoTurma {
 
     /**
      * Função que calcula a nota do aluno, irá ser adicionado 1 a cada resposta
-     * certa, descontado 0.5 a cada nota errada.
+     * certa, descontado 0.5 a cada nota errada, ou 0 se tiver em branco.
      *
      * @param listaRespostas -> Lista de inteiros com respostas a ser avaliadas
      * @param listaRespostasCertas -> Lista de inteiros com respostas corretas

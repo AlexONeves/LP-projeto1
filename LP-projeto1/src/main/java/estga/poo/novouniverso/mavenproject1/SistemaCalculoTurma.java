@@ -29,6 +29,13 @@ class ResultadoCalculo {
         this.mediaNotas = SistemaCalculoTurma.numeroMediaArrayInt(this.resultados);
     }
 
+    /**
+     *
+     * Função que avalia e processa os dados a popular na pauta de turma.
+     *
+     * @param turma-> Objeto turma a ser processado
+     * @return
+     */
     private ArrayList<Double> calcularNotas(ArrayList<ArrayList<Integer>> turma) {
         ArrayList<Double> tmp = new ArrayList<>();
 
@@ -81,7 +88,7 @@ class ResultadoCalculo {
  *
  * @author ricar
  */
-public class SistemaCalculoTurma implements Serializable {
+public class SistemaCalculoTurma {
 
     /**
      * Função que calcula a nota do aluno, irá ser adicionado 1 a cada resposta

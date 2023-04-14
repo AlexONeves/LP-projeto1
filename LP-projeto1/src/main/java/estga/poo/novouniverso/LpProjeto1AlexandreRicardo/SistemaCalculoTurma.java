@@ -282,12 +282,13 @@ public class SistemaCalculoTurma {
             Respuestas.add(respostas[curr_nota]);
         }
 
-        //TO DO
         //gera ficheiro Respostas, retorna false em caso de insucesso
         try {
-            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(filePath));
-            output.writeObject(Respuestas);
-            output.close();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            for (int resposta : Respuestas) {
+                writer.write(resposta + "\n");
+            }
+            writer.close();
 
         } catch (IOException ioe) {
             return false;
@@ -305,11 +306,15 @@ public class SistemaCalculoTurma {
         return turma;
     }
 
-    static ArrayList<Integer> retornarFicheiroRespostasCorretas(String nomeFicheiro) throws IOException, ClassNotFoundException {
-        ArrayList<Integer> RespostasCorretas;
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterDiretorio(nomeFicheiro)));
-        RespostasCorretas = (ArrayList<Integer>) ois.readObject();
-        ois.close();
+    static ArrayList<Integer> retornarFicheiroRespostasCorretas(String nomeFicheiro) throws IOException {
+        ArrayList<Integer> RespostasCorretas = new ArrayList<Integer>();
+        BufferedReader reader = new BufferedReader(new FileReader(obterDiretorio(nomeFicheiro)));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            //Converte Linhas de texto do arquivo para Numeros Inteiros e armaneza na array list
+            RespostasCorretas.add(Integer.parseInt(line));
+        }
+        reader.close();
 
         return RespostasCorretas;
     }

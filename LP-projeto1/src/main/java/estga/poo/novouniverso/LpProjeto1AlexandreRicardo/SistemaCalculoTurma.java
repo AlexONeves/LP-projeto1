@@ -311,7 +311,7 @@ public class SistemaCalculoTurma {
         BufferedReader reader = new BufferedReader(new FileReader(obterDiretorio(nomeFicheiro)));
         String line;
         while ((line = reader.readLine()) != null) {
-            //Converte Linhas de texto do arquivo para Numeros Inteiros e armaneza na array list
+            //Converte Linhas de texto do arquivo para Numeros Inteiros e armazena na array list
             RespostasCorretas.add(Integer.parseInt(line));
         }
         reader.close();

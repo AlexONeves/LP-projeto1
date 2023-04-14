@@ -39,7 +39,6 @@ public class LpProjeto1AlexandreRicardo implements Serializable {
         if (SistemaCalculoTurma.verificarExistenciaDeFicheiros(nomeFicheiroResposta, nomeFicheiroTurma) != true) {
             //gerar templates
             SistemaCalculoTurma.gerarFicheiroTurma(numAlunos, numRespostas, obterDiretorio(nomeFicheiroTurma));
-
             SistemaCalculoTurma.gerarFicheiroRespostas(numRespostas, obterDiretorio(nomeFicheiroResposta));
             System.out.println("Nenhum ficheiro turma/respostas foi encontrado, foram criados novos!");
         }

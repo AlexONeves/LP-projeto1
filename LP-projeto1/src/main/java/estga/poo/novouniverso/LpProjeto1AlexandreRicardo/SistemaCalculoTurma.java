@@ -1,5 +1,6 @@
-package estga.poo.novouniverso.mavenproject1;
+package estga.poo.novouniverso.LpProjeto1AlexandreRicardo;
 
+import static estga.poo.novouniverso.LpProjeto1AlexandreRicardo.LpProjeto1AlexandreRicardo.obterDiretorio;
 import java.io.*;
 import java.util.*;
 
@@ -15,12 +16,12 @@ class ResultadoCalculo {
     private transient int numeroPositivasInt;
     private transient int numeroNegativasInt;
 
-    public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma) {
+    public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma, ArrayList<Integer> respostasCorretas) {
 
         //OBJETIVO É IMPLEMENTAR ISTO
-        //public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma, ArrayList<Integer> respostasCorretas)
-        //this.respostasCorretas = respostasCorretas;
-        this.respostasCorretas = SistemaCalculoTurma.gerarRespostas(30);
+        //public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma, ArrayList<Integer> respostasCorretas);
+        this.respostasCorretas = respostasCorretas;
+        //this.respostasCorretas = SistemaCalculoTurma.gerarRespostas(30);
 
         this.resultados = calcularNotas(turma);
 
@@ -130,19 +131,6 @@ public class SistemaCalculoTurma {
      * @param quantidade -> Quantidade de numeros/respostas a gerar
      * @return Irá retornar a lista de numeros gerados
      */
-    static ArrayList<Integer> gerarRespostas(int quantidade) {
-
-        ArrayList<Integer> tmp = new ArrayList<>();
-        Random r = new Random();
-
-        //cria numero de 1 a 5 com class Random
-        for (int i = 0; i < quantidade; i++) {
-            tmp.add(r.nextInt(1, 5));
-        }
-
-        return tmp;
-    }
-
     /**
      * Função que obtem o maior numero de um array fornecido.
      *
@@ -286,15 +274,43 @@ public class SistemaCalculoTurma {
         }
 
         int[] respostas = new int[numRespostas];
-
+        ArrayList<Integer> Respuestas = new ArrayList<Integer>();
         Random randResposta = new Random();
 
         for (int curr_nota = 0; curr_nota < numRespostas; curr_nota++) {
             respostas[curr_nota] = randResposta.nextInt(5) + 0;
+            Respuestas.add(respostas[curr_nota]);
         }
 
         //TO DO
+        //gera ficheiro Respostas, retorna false em caso de insucesso
+        try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(filePath));
+            output.writeObject(Respuestas);
+            output.close();
+
+        } catch (IOException ioe) {
+            return false;
+        }
         return true;
 
+    }
+
+    static ArrayList<ArrayList<Integer>> retornarFicheiroTurma(String nomeFicheiro) throws IOException, ClassNotFoundException {
+        ArrayList<ArrayList<Integer>> turma;
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterDiretorio(nomeFicheiro)));
+        turma = (ArrayList<ArrayList<Integer>>) ois.readObject();
+        ois.close();
+
+        return turma;
+    }
+
+    static ArrayList<Integer> retornarFicheiroRespostasCorretas(String nomeFicheiro) throws IOException, ClassNotFoundException {
+        ArrayList<Integer> RespostasCorretas;
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterDiretorio(nomeFicheiro)));
+        RespostasCorretas = (ArrayList<Integer>) ois.readObject();
+        ois.close();
+
+        return RespostasCorretas;
     }
 }

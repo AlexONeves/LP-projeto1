@@ -35,6 +35,7 @@ public class LpProjeto1AlexandreRicardo {
         final int numRespostas = 30;
         final String nomeFicheiroTurma = "respostasTurma";
         final String nomeFicheiroResposta = "respostas.txt";
+        final String nomeFicheiroResultado = "resultado.txt";
 
         if (SistemaCalculoTurma.verificarExistenciaDeFicheiros(nomeFicheiroResposta, nomeFicheiroTurma) != true) {
             //gerar templates
@@ -48,6 +49,15 @@ public class LpProjeto1AlexandreRicardo {
                 SistemaCalculoTurma.retornarFicheiroRespostasCorretas(obterDiretorio(nomeFicheiroResposta)));
 
         System.out.println(resultado.toString());
+
+        //guardar resultados num ficheiro
+        try {
+            FileWriter fw = new FileWriter(obterDiretorio(nomeFicheiroResultado));
+            fw.write(resultado.toString());
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println("Erro ao colocar resultados no ficheiro");
+        }
 
     }
 }

@@ -145,7 +145,9 @@ public class SistemaCalculoTurma {
 
         Double maior = arr.get(0);
 
-        arr.stream().forEach((n) -> Double.max(maior, n));
+        for (Double curr_numero : arr) {
+            maior = Double.max(maior, curr_numero);
+        }
 
         return maior;
     }
@@ -163,7 +165,9 @@ public class SistemaCalculoTurma {
 
         double menor = arr.get(0);
 
-        arr.stream().forEach((n) -> Double.min(menor, n));
+        for (double curr_numero : arr) {
+            menor = Double.min(menor, curr_numero);
+        }
 
         return menor;
     }

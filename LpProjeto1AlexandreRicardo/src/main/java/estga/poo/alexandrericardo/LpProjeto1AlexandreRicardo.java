@@ -31,8 +31,8 @@ public class LpProjeto1AlexandreRicardo {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ResultadoCalculo resultado = null;
 
-        final int numAlunos = 20;
-        final int numRespostas = 30;
+        final int numAlunos = 30;
+        final int numRespostas = 20;
         final String nomeFicheiroTurma = "respostasTurma";
         final String nomeFicheiroResposta = "respostas.txt";
         final String nomeFicheiroResultado = "resultado.txt";

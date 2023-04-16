@@ -3,26 +3,36 @@ alunos:
 1 - 0.0
 2 - 1.5
 3 - 1.0
-4 - 1.0
-5 - 0.0
-6 - 0.5
-7 - 1.5
-8 - 0.0
-9 - 0.5
-10 - 0.0
+4 - 0.0
+5 - 1.0
+6 - 1.0
+7 - 0.0
+8 - 1.0
+9 - 1.5
+10 - 3.0
 11 - 0.0
-12 - 0.0
-13 - 1.0
-14 - 0.5
+12 - 2.5
+13 - 2.0
+14 - 5.5
 15 - 0.0
 16 - 0.0
-17 - 0.0
-18 - 0.0
+17 - 2.0
+18 - 0.5
 19 - 0.0
-20 - 1.0
-Nota mais alta: 1.5
+20 - 2.0
+21 - 0.0
+22 - 0.0
+23 - 0.5
+24 - 0.0
+25 - 0.0
+26 - 1.0
+27 - 0.5
+28 - 0.0
+29 - 0.0
+30 - 1.5
+Nota mais alta: 5.5
 Nota mais baixa: 0.0
-Média das notas: 0.425
+Média das notas: 0.9333333333333333
 Número de positivas e respetiva percentagem: 0 - 0 %
-Número de negativas e respetiva percentagem: 20 - 0 %
+Número de negativas e respetiva percentagem: 30 - 100 %
 

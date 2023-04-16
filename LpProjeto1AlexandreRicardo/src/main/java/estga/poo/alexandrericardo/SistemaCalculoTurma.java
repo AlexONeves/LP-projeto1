@@ -1,6 +1,9 @@
-package estga.poo.novouniverso.LpProjeto1AlexandreRicardo;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package estga.poo.alexandrericardo;
 
-import static estga.poo.novouniverso.LpProjeto1AlexandreRicardo.LpProjeto1AlexandreRicardo.obterDiretorio;
 import java.io.*;
 import java.util.*;
 
@@ -18,10 +21,7 @@ class ResultadoCalculo {
 
     public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma, ArrayList<Integer> respostasCorretas) {
 
-        //OBJETIVO É IMPLEMENTAR ISTO
-        //public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma, ArrayList<Integer> respostasCorretas);
         this.respostasCorretas = respostasCorretas;
-        //this.respostasCorretas = SistemaCalculoTurma.gerarRespostas(30);
 
         this.resultados = calcularNotas(turma);
 
@@ -145,9 +145,7 @@ public class SistemaCalculoTurma {
 
         Double maior = arr.get(0);
 
-        for (Double curr_numero : arr) {
-            maior = Double.max(maior, curr_numero);
-        }
+        arr.stream().forEach((n) -> Double.max(maior, n));
 
         return maior;
     }
@@ -165,9 +163,7 @@ public class SistemaCalculoTurma {
 
         double menor = arr.get(0);
 
-        for (double curr_numero : arr) {
-            menor = Double.min(menor, curr_numero);
-        }
+        arr.stream().forEach((n) -> Double.min(menor, n));
 
         return menor;
     }
@@ -297,25 +293,58 @@ public class SistemaCalculoTurma {
 
     }
 
-    static ArrayList<ArrayList<Integer>> retornarFicheiroTurma(String nomeFicheiro) throws IOException, ClassNotFoundException {
-        ArrayList<ArrayList<Integer>> turma;
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterDiretorio(nomeFicheiro)));
-        turma = (ArrayList<ArrayList<Integer>>) ois.readObject();
-        ois.close();
+    /**
+     * Função que acede ao ficheiro turma e passa os valores dos alunos para uma
+     * ArrayList<ArrayList<Integer>>.
+     *
+     * @param Ficheiro -> Caminho do ficheiro
+     *
+     * @return Retorna valores do ficheiro turma
+     */
+    static ArrayList<ArrayList<Integer>> retornarFicheiroTurma(File Ficheiro) {
 
-        return turma;
+        try {
+            ArrayList<ArrayList<Integer>> turma;
+            ObjectInputStream ois = null;
+            ois = new ObjectInputStream(new FileInputStream(Ficheiro));
+            turma = (ArrayList<ArrayList<Integer>>) ois.readObject();
+            ois.close();
+            return turma;
+
+        } catch (FileNotFoundException ex) {
+            return null;
+        } catch (IOException ex) {
+            return null;
+        } catch (ClassNotFoundException ex) {
+            return null;
+        }
     }
 
-    static ArrayList<Integer> retornarFicheiroRespostasCorretas(String nomeFicheiro) throws IOException {
-        ArrayList<Integer> RespostasCorretas = new ArrayList<Integer>();
-        BufferedReader reader = new BufferedReader(new FileReader(obterDiretorio(nomeFicheiro)));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            //Converte Linhas de texto do arquivo para Numeros Inteiros e armazena na array list
-            RespostasCorretas.add(Integer.parseInt(line));
-        }
-        reader.close();
+    /**
+     * Função que acede ao ficheiro respostas.txt e passa os numeros inteiros de
+     * respostas.txt para uma arrayList de Integer.
+     *
+     * @param Ficheiro -> Caminho do ficheiro
+     *
+     * @return Retorna ArrayList de Integer das respostas Corretas
+     */
+    static ArrayList<Integer> retornarFicheiroRespostasCorretas(File Ficheiro) {
+        BufferedReader reader = null;
+        try {
 
-        return RespostasCorretas;
+            ArrayList<Integer> RespostasCorretas = new ArrayList<Integer>();
+            reader = new BufferedReader(new FileReader(Ficheiro));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                //Converte Linhas de texto do arquivo para Numeros Inteiros e armazena na array list
+                RespostasCorretas.add(Integer.valueOf(line));
+            }
+            reader.close();
+
+            return RespostasCorretas;
+
+        } catch (IOException ex) {
+            return null;
+        }
     }
 }

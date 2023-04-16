@@ -1,7 +1,7 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-package estga.poo.novouniverso.LpProjeto1AlexandreRicardo;
+package estga.poo.alexandrericardo;
 
 import java.io.*;
 
@@ -10,7 +10,7 @@ import java.io.*;
  * @author alex
  * @author ricar
  */
-public class LpProjeto1AlexandreRicardo implements Serializable {
+public class LpProjeto1AlexandreRicardo {
 
     /**
      * função criada para facilitar dar o caminho de ficheiros
@@ -44,10 +44,8 @@ public class LpProjeto1AlexandreRicardo implements Serializable {
         }
 
         //respostas
-        resultado = new ResultadoCalculo(SistemaCalculoTurma.retornarFicheiroTurma(nomeFicheiroTurma), SistemaCalculoTurma.retornarFicheiroRespostasCorretas(nomeFicheiroResposta));
-
-        //criar leitura de texto
-        BufferedReader br = new BufferedReader(new FileReader(obterDiretorio("respostas.txt")));
+        resultado = new ResultadoCalculo(SistemaCalculoTurma.retornarFicheiroTurma(obterDiretorio(nomeFicheiroTurma)),
+                SistemaCalculoTurma.retornarFicheiroRespostasCorretas(obterDiretorio(nomeFicheiroResposta)));
 
         System.out.println(resultado.toString());
 

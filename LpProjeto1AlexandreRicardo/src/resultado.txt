@@ -1,38 +1,38 @@
-turma{
+turma:
 alunos:
 1 - 0.0
-2 - 1.5
-3 - 1.0
-4 - 0.0
-5 - 1.0
-6 - 1.0
-7 - 0.0
-8 - 1.0
-9 - 1.5
-10 - 3.0
-11 - 0.0
+2 - 0.0
+3 - 1.5
+4 - 13.5
+5 - 13.0
+6 - 2.0
+7 - 13.0
+8 - 2.5
+9 - 0.5
+10 - 2.0
+11 - 6.0
 12 - 2.5
-13 - 2.0
-14 - 5.5
+13 - 5.5
+14 - 0.0
 15 - 0.0
-16 - 0.0
-17 - 2.0
-18 - 0.5
-19 - 0.0
-20 - 2.0
-21 - 0.0
-22 - 0.0
-23 - 0.5
-24 - 0.0
+16 - 13.0
+17 - 5.0
+18 - 15.5
+19 - 6.5
+20 - 13.5
+21 - 5.0
+22 - 0.5
+23 - 13.0
+24 - 5.0
 25 - 0.0
-26 - 1.0
-27 - 0.5
-28 - 0.0
-29 - 0.0
-30 - 1.5
-Nota mais alta: 5.5
+26 - 0.5
+27 - 12.5
+28 - 12.5
+29 - 13.5
+30 - 0.0
+Nota mais alta: 15.5
 Nota mais baixa: 0.0
-Média das notas: 0.9333333333333333
-Número de positivas e respetiva percentagem: 0 - 0 %
-Número de negativas e respetiva percentagem: 30 - 100 %
+Média das notas: 5.933333333333334
+Número de positivas e respetiva percentagem: 10 - 33.33333333333333 %
+Número de negativas e respetiva percentagem: 20 - 66.66666666666666 %
 

@@ -9,14 +9,14 @@ import java.util.*;
 
 class ResultadoCalculo {
 
-    private transient ArrayList<Integer> respostasCorretas;
-    private transient ArrayList<Double> resultados;
+    private ArrayList<Integer> respostasCorretas;
+    private ArrayList<Double> resultados;
 
-    private transient double maiorNota;
-    private transient double menorNota;
-    private transient double mediaNotas;
+    private double maiorNota;
+    private double menorNota;
+    private double mediaNotas;
 
-    private transient int numeroPositivasInt;
+    private int numeroPositivasInt;
     private transient int numeroNegativasInt;
 
     public ResultadoCalculo(ArrayList<ArrayList<Integer>> turma, ArrayList<Integer> respostasCorretas) {
@@ -66,7 +66,7 @@ class ResultadoCalculo {
     @Override
     public String toString() {
 
-        String tmp = "turma{\n" + "alunos:\n";
+        String tmp = "turma:\n" + "alunos:\n";
 
         for (int i = 0; i < resultados.size(); i++) {
             tmp += ((i + 1) + " - " + Double.toString(resultados.get(i)) + '\n');
@@ -76,9 +76,9 @@ class ResultadoCalculo {
                 + "Nota mais baixa: " + this.menorNota + '\n'
                 + "Média das notas: " + this.mediaNotas + '\n'
                 + "Número de positivas e respetiva percentagem: " + this.numeroPositivasInt
-                + " - " + (this.numeroPositivasInt / this.respostasCorretas.size()) * 100 + " %\n"
+                + " - " + ((double) this.numeroPositivasInt / (double) this.resultados.size()) * 100 + " %\n"
                 + "Número de negativas e respetiva percentagem: " + this.numeroNegativasInt
-                + " - " + (this.numeroNegativasInt / this.respostasCorretas.size()) * 100 + " %\n"
+                + " - " + ((double) this.numeroNegativasInt / (double) this.resultados.size()) * 100 + " %\n"
                 + '\n';
 
         return tmp;
@@ -274,7 +274,7 @@ public class SistemaCalculoTurma {
         }
 
         int[] respostas = new int[numRespostas];
-        ArrayList<Integer> Respuestas = new ArrayList<Integer>();
+        ArrayList<Integer> Respuestas = new ArrayList<>();
         Random randResposta = new Random();
 
         for (int curr_nota = 0; curr_nota < numRespostas; curr_nota++) {
@@ -336,7 +336,7 @@ public class SistemaCalculoTurma {
         BufferedReader reader = null;
         try {
 
-            ArrayList<Integer> RespostasCorretas = new ArrayList<Integer>();
+            ArrayList<Integer> RespostasCorretas = new ArrayList<>();
             reader = new BufferedReader(new FileReader(Ficheiro));
             String line;
             while ((line = reader.readLine()) != null) {
